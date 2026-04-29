@@ -218,9 +218,9 @@ The frontend connects to the live FastAPI backend and stores simulation results 
 ## Screenshots
 
 ### Frontend
-![Frontend](frontend.png)
+
 <img width="1105" height="741" alt="frontend" src="https://github.com/user-attachments/assets/4c736981-9f15-4422-a314-0be4a1827925" />
 
 ### API Docs
-![API](api.png)
+
 <img width="1467" height="772" alt="api" src="https://github.com/user-attachments/assets/44c3eb3d-6ebf-41e3-8d6c-228d65aa7f4a" />
