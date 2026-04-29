@@ -1,4 +1,4 @@
-# Commodity Trading Strategy Simulator
+# Commodity Trading Strategy Simulator 
 
 A full-stack ready stochastic commodity trading simulator built with Python, FastAPI, and PostgreSQL.
 
