@@ -217,9 +217,10 @@ The frontend connects to the live FastAPI backend and stores simulation results 
 
 ### Frontend
 
-<img width="1134" height="741" alt="frontend1" src="https://github.com/user-attachments/assets/f959b00d-e242-43e5-bfa5-dde6fcfe17ea" /><img width="1097" height="839" alt="frontend2" src="https://github.com/user-attachments/assets/97ece0aa-016b-4648-9550-a3c2a2da0c91" />
+<img width="1134" height="741" alt="frontend1" src="https://github.com/user-attachments/assets/4b664f43-ffc9-489a-ad66-14ff30331677" />
 
+<img width="1139" height="643" alt="frontend2" src="https://github.com/user-attachments/assets/0336a5a2-54b5-4252-b753-0af8fd276b93" />
 
 ### API Docs
 
-<img width="1467" height="772" alt="api" src="https://github.com/user-attachments/assets/44c3eb3d-6ebf-41e3-8d6c-228d65aa7f4a" />
+<img width="1467" height="772" alt="api" src="https://github.com/user-attachments/assets/a7c90adb-4e7c-44bf-bd83-685b1cf972a5" />
