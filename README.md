@@ -204,3 +204,11 @@ It is directly relevant for:
 * commodity trading roles
 * quantitative analyst positions
 * backend / full-stack engineering roles
+
+## Live Demo
+
+Backend API:
+
+https://commodity-trading-simulator.onrender.com/docs
+
+The frontend connects to the live FastAPI backend and stores simulation results in PostgreSQL.
