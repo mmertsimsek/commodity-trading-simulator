@@ -212,3 +212,11 @@ Backend API:
 https://commodity-trading-simulator.onrender.com/docs
 
 The frontend connects to the live FastAPI backend and stores simulation results in PostgreSQL.
+
+## Screenshots
+
+### Frontend
+![Frontend](frontend.png)
+
+### API Docs
+![API](api.png)
