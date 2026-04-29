@@ -1,5 +1,5 @@
-<img width="1105" height="741" alt="frontend" src="https://github.com/user-attachments/assets/98d74d20-cb61-4841-baa5-f7aa18c01ad0" />
-<img width="1467" height="772" alt="api" src="https://github.com/user-attachments/assets/ba0c34b3-0ee7-44ac-a2d0-7eb9b8ae41da" />
+
+
 # Commodity Trading Strategy Simulator
 
 A full-stack ready stochastic commodity trading simulator built with Python, FastAPI, and PostgreSQL.
@@ -219,6 +219,8 @@ The frontend connects to the live FastAPI backend and stores simulation results 
 
 ### Frontend
 ![Frontend](frontend.png)
+<img width="1105" height="741" alt="frontend" src="https://github.com/user-attachments/assets/4c736981-9f15-4422-a314-0be4a1827925" />
 
 ### API Docs
 ![API](api.png)
+<img width="1467" height="772" alt="api" src="https://github.com/user-attachments/assets/44c3eb3d-6ebf-41e3-8d6c-228d65aa7f4a" />
