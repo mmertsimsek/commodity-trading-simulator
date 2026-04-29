@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Commodity Trading Simulator</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 30px;
+            color: #222;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            margin-bottom: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        button {
+            margin-top: 18px;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 8px;
+            background: #1f2937;
+            color: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #374151;
+        }
+
+        .result-box {
+            background: #f9fafb;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 16px;
+            white-space: pre-wrap;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 16px;
+            background: white;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px solid #e5e7eb;
+            text-align: left;
+        }
+
+        th {
+            background: #f3f4f6;
+        }
+
+        .badge {
+            padding: 4px 8px;
+            border-radius: 6px;
+            background: #e5e7eb;
+            font-size: 12px;
+        }
+
+        .low {
+            color: green;
+            font-weight: bold;
+        }
+
+        .medium {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .high {
+            color: red;
+            font-weight: bold;
+        }
+
+        canvas {
+            margin-top: 24px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Commodity Trading Simulator</h1>
+
+    <div class="card">
+        <h2>Run Simulation</h2>
+
+        <label>Aggressive Level</label>
+        <input id="level" type="number" value="3" min="1" max="6">
+
+        <label>Runs</label>
+        <input id="runs" type="number" value="100" min="1">
+
+        <label>Risk Penalty</label>
+        <input id="riskPenalty" type="number" value="0.1" step="0.01" min="0">
+
+        <label>Storage Penalty Weight</label>
+        <input id="storagePenalty" type="number" value="10" step="1" min="0">
+
+        <button onclick="runSimulation()">Run Simulation</button>
+
+        <h3>Simulation Result</h3>
+        <div id="result" class="result-box">No simulation yet.</div>
+    </div>
+
+    <div class="card">
+        <h2>Saved Results</h2>
+        <button onclick="loadResults()">Load Results</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Level</th>
+                    <th>Avg Profit</th>
+                    <th>Variance</th>
+                    <th>Score</th>
+                    <th>Risk</th>
+                    <th>Decision</th>
+                </tr>
+            </thead>
+
+            <tbody id="resultsTable">
+                <tr>
+                    <td colspan="8">No results loaded.</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <canvas id="chart" height="100"></canvas>
+    </div>
+</div>
+
+<script>
+const API_URL = "http://127.0.0.1:8000";
+
+let chart;
+
+function getRiskClass(riskLabel) {
+    return riskLabel.split(' ')[0].toLowerCase();
+}
+
+async function runSimulation() {
+    const level = document.getElementById("level").value;
+    const runs = document.getElementById("runs").value;
+    const riskPenalty = document.getElementById("riskPenalty").value;
+    const storagePenalty = document.getElementById("storagePenalty").value;
+
+    const response = await fetch(`${API_URL}/simulate`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            aggressive_level: Number(level),
+            runs: Number(runs),
+            risk_penalty: Number(riskPenalty),
+            storage_penalty_weight: Number(storagePenalty)
+        })
+    });
+
+    const data = await response.json();
+
+    document.getElementById("result").innerHTML =
+        `Aggressive Level: ${data.aggressive_level}
+Average Profit: ${data.avg_profit}
+Variance: ${data.variance}
+Score: ${data.score}
+Risk: <span class="${getRiskClass(data.risk_label)}">${data.risk_label}</span>
+Decision: ${data.decision_label}`;
+
+    loadResults();
+}
+
+async function loadResults() {
+    const response = await fetch(`${API_URL}/results`);
+    const data = await response.json();
+
+    const table = document.getElementById("resultsTable");
+    table.innerHTML = "";
+
+    if (data.length === 0) {
+        table.innerHTML = `<tr><td colspan="8">No saved results.</td></tr>`;
+        return;
+    }
+
+    data.forEach(result => {
+        table.innerHTML += `
+            <tr>
+                <td>${result.id}</td>
+                <td><span class="badge">${result.run_type}</span></td>
+                <td>${result.aggressive_level}</td>
+                <td>${result.avg_profit}</td>
+                <td>${result.variance}</td>
+                <td>${result.score}</td>
+                <td class="${getRiskClass(result.risk_label)}">
+                    ${result.risk_label}
+                </td>
+                <td>${result.decision_label}</td>
+            </tr>
+        `;
+    });
+
+    renderChart(data);
+}
+
+function renderChart(data) {
+    const ctx = document.getElementById("chart");
+
+    const labels = data.map(r => `L${r.aggressive_level}`);
+    const profits = data.map(r => r.avg_profit);
+
+    if (chart) {
+        chart.destroy();
+    }
+
+    chart = new Chart(ctx, {
+        type: "bar",
+        data: {
+            labels: labels,
+            datasets: [{
+                label: "Average Profit",
+                data: profits
+            }]
+        }
+    });
+}
+</script>
+
+</body>
+</html>
