@@ -1,5 +1,3 @@
-
-
 # Commodity Trading Strategy Simulator
 
 A full-stack ready stochastic commodity trading simulator built with Python, FastAPI, and PostgreSQL.
@@ -219,7 +217,8 @@ The frontend connects to the live FastAPI backend and stores simulation results 
 
 ### Frontend
 
-<img width="1105" height="741" alt="frontend" src="https://github.com/user-attachments/assets/4c736981-9f15-4422-a314-0be4a1827925" />
+<img width="1134" height="741" alt="frontend1" src="https://github.com/user-attachments/assets/f959b00d-e242-43e5-bfa5-dde6fcfe17ea" /><img width="1097" height="839" alt="frontend2" src="https://github.com/user-attachments/assets/97ece0aa-016b-4648-9550-a3c2a2da0c91" />
+
 
 ### API Docs
 
